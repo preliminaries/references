@@ -62,9 +62,9 @@ class KeyStrings:
         """
 
         local: pd.DataFrame = self.__local(path=path, extension=extension)
-
         metadata: pd.DataFrame = self.__metadata(path=path, vertices=local['vertex'].tolist())
+        frame = local.copy().merge(metadata, how='left', on='vertex')
 
         # Building the Amazon S3 strings
-        keys: list[str] = [f'{prefix}{vertex}' for vertex in vertices]
-        self.__logger.info(keys)
+        frame = frame.assign(key=prefix + frame["vertex"])
+        self.__logger.info(frame)

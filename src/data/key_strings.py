@@ -24,10 +24,25 @@ class KeyStrings:
                             format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
                             datefmt='%Y-%m-%d %H:%M:%S')
         self.__logger = logging.getLogger(__name__)
+
+    def __local(self, path: str, extension: str) -> pd.DataFrame:
+
+        # The list of files within the path directory, including its child directories.
+        files: list[str] = glob.glob(pathname=os.path.join(path, '**',  f'*.{extension}'), recursive=True)
+
+        details: list[dict] = [{'file': file,
+                                'vertex': file.rsplit(os.path.sep, maxsplit=1)[1]}
+                               for file in files]
+        self.__logger.info(details)
+
+        frame = pd.DataFrame.from_records(details)
+        self.__logger.info(frame)
+
+        return frame
         
     def __metadata(self, path: str, vertices: list[str]):
 
-        details = [{'vertex': vertex,
+        details: list[dict] = [{'vertex': vertex,
                     'metadata': self.__objects.read(uri=os.path.join(path, f'{pathlib.Path(vertex).stem}.json'))}
                    for vertex in vertices]
         self.__logger.info(details)
@@ -44,12 +59,8 @@ class KeyStrings:
         :return:
         """
 
-        # The list of files within the path directory, including its child directories.
-        files: list[str] = glob.glob(pathname=os.path.join(path, '**',  f'*.{extension}'), recursive=True)
-        self.__logger.info(files)
-        
-        vertices: list[str] = [file.rsplit(os.path.sep, maxsplit=1)[1] for file in files]
-        self.__logger.info(vertices)
+        local: pd.DataFrame = self.__local(path=path, extension=extension)
+        vertices = local['vertex'].tolist()
 
         self.__metadata(path=path, vertices=vertices)
 

@@ -1,0 +1,16 @@
+unit_id,unit_of_measure,description,mapping_string
+681535,cubic metres,Cubic Metres,cubic metres
+681536,FTE Working Hour,Full Time Equivalent Working Hour,fte working hour
+681537,kg,Kilograms,kg
+681538,km,Kilometres,km
+681539,kWh,Kilowatt-hour,kwh
+681540,Kyoto Protocol - Standard,Kyoto Protocol - Standard,kyoto protocol - standard
+681541,litres,Litres,litres
+681542,Mass used kg / GWP100,Kilograms per global warming potential (GWP) values for 100-year time horizon relative to carbon dioxide,mass used kg / gwp100
+681543,miles,Miles,miles
+681544,million litres,Million Litres,million litres
+681545,passenger.km,Passenger Kilometres,passenger.km
+681546,Room per night,Room per night,room per night
+681547,tonnes,Tonnes,tonnes
+681548,GJ,Gigajoules,gj
+681549,cc,Cubic Centimetres,cc

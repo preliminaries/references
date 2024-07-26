@@ -25,6 +25,8 @@ def main():
     for string in strings.to_dict(orient='records'):
         logger.info(string['metadata'])
 
+    src.s3.ingress.Ingress(service=service, bucket_name=s3_parameters.external).exc(strings=strings)
+
     # Deleting __pycache__
     src.functions.cache.Cache().exc()
 
@@ -50,6 +52,7 @@ if __name__ == '__main__':
     import src.functions.cache
     import src.functions.service
     import src.s3.s3_parameters
+    import src.s3.ingress
     import src.setup
 
     configurations = config.Config()

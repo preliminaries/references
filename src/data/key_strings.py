@@ -1,9 +1,9 @@
 """Module key_strings.py"""
-import logging
 import glob
+import logging
 import os
-
 import pathlib
+
 import pandas as pd
 
 import src.functions.objects
@@ -25,34 +25,42 @@ class KeyStrings:
                             datefmt='%Y-%m-%d %H:%M:%S')
         self.__logger = logging.getLogger(__name__)
 
-    def __local(self, path: str, extension: str) -> pd.DataFrame:
+    @staticmethod
+    def __local(path: str, extension: str) -> pd.DataFrame:
+        """
+
+        :param path: The path wherein the files of interest lie
+        :param extension: The extension type of the files of interest
+        :return:
+        """
 
         # The list of files within the path directory, including its child directories.
-        files: list[str] = glob.glob(pathname=os.path.join(path, '**',  f'*.{extension}'), recursive=True)
+        files: list[str] = glob.glob(pathname=os.path.join(path, '**',  f'*.{extension}'),
+                                     recursive=True)
 
-        details: list[dict] = [{'file': file,
-                                'vertex': file.rsplit(os.path.sep, maxsplit=1)[1]}
-                               for file in files]
-        self.__logger.info(details)
+        details: list[dict] = [
+            {'file': file,
+             'vertex': file.rsplit(os.path.sep, maxsplit=1)[1]}
+            for file in files]
 
-        frame = pd.DataFrame.from_records(details)
-        self.__logger.info(frame)
-
-        return frame
+        return pd.DataFrame.from_records(details)
         
     def __metadata(self, path: str, vertices: list[str]) -> pd.DataFrame:
+        """
 
-        details: list[dict] = [{'vertex': vertex,
-                    'metadata': self.__objects.read(uri=os.path.join(path, f'{pathlib.Path(vertex).stem}.json'))}
-                   for vertex in vertices]
-        self.__logger.info(details)
+        :param path: The path wherein the files of interest lie
+        :param vertices: <file name> & <extension>
+        :return:
+        """
 
-        frame = pd.DataFrame.from_records(details)
-        self.__logger.info(frame)
+        details: list[dict] = [
+            {'vertex': vertex,
+             'metadata': self.__objects.read(uri=os.path.join(path, f'{pathlib.Path(vertex).stem}.json'))}
+            for vertex in vertices]
 
-        return frame
+        return pd.DataFrame.from_records(details)
 
-    def exc(self, path: str, extension: str, prefix: str):
+    def exc(self, path: str, extension: str, prefix: str) -> pd.DataFrame:
         """
 
         :param path: The path wherein the files of interest lie
@@ -67,4 +75,5 @@ class KeyStrings:
 
         # Building the Amazon S3 strings
         frame = frame.assign(key=prefix + frame["vertex"])
-        self.__logger.info(frame)
+
+        return frame[['file', 'key', 'metadata']]

@@ -1,0 +1,6 @@
+{
+  "unit_id": "The unique identification code of the unit.",
+  "unit_of_measure": "The unit of measure.",
+  "description": "The description of the unit of measure.",
+  "mapping_string": "The embedded text string, which will be replaced with a code."
+}

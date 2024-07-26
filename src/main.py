@@ -11,11 +11,19 @@ def main():
 
     # Logging
     logger: logging.Logger = logging.getLogger(name=__name__)
-    logger.info('restart')
+    logger.info('references')
 
     # Empty/Create Buckets
     src.setup.Setup(service=service, s3_parameters=s3_parameters, warehouse=configurations.warehouse).exc(
         bucket_name=s3_parameters.external, prefix=s3_parameters.path_external_references)
+
+    # Explore
+    strings = src.data.key_strings.KeyStrings().exc(
+        path=os.path.join(root, 'data', 'references'),
+        extension='csv', prefix=s3_parameters.path_external_references)
+    logger.info(strings.to_dict('records'))
+    for string in strings.to_dict(orient='records'):
+        logger.info(string['metadata'])
 
     # Deleting __pycache__
     src.functions.cache.Cache().exc()
@@ -36,6 +44,7 @@ if __name__ == '__main__':
 
     # Modules
     import config
+    import src.data.key_strings
     import src.elements.s3_parameters as s3p
     import src.elements.service as sr
     import src.functions.cache

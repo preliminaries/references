@@ -40,7 +40,7 @@ class KeyStrings:
 
         return frame
         
-    def __metadata(self, path: str, vertices: list[str]):
+    def __metadata(self, path: str, vertices: list[str]) -> pd.DataFrame:
 
         details: list[dict] = [{'vertex': vertex,
                     'metadata': self.__objects.read(uri=os.path.join(path, f'{pathlib.Path(vertex).stem}.json'))}
@@ -49,6 +49,8 @@ class KeyStrings:
 
         frame = pd.DataFrame.from_records(details)
         self.__logger.info(frame)
+
+        return frame
 
     def exc(self, path: str, extension: str, prefix: str):
         """
@@ -60,9 +62,8 @@ class KeyStrings:
         """
 
         local: pd.DataFrame = self.__local(path=path, extension=extension)
-        vertices = local['vertex'].tolist()
 
-        self.__metadata(path=path, vertices=vertices)
+        metadata: pd.DataFrame = self.__metadata(path=path, vertices=local['vertex'].tolist())
 
         # Building the Amazon S3 strings
         keys: list[str] = [f'{prefix}{vertex}' for vertex in vertices]

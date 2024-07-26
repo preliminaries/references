@@ -1,0 +1,5 @@
+scope_id,scope_name,description,mapping_string
+4311,Scope 1,Direct green house gas emissions from owned or controlled sources.,scope 1
+4312,Scope 2,"Indirect green house gas emissions from the purchase of electricity, steam, heat, or cooling.",scope 2
+4313,Scope 3,"All indirect emissions, except those accounted for under scope 2, i.e., emissions due to activities that the organisation affects within its value chain.",scope 3
+4314,Combined Scopes (for Electric Vehicles only),"Combined scopes for electric vehicles, only.",combined scopes (for evs only)

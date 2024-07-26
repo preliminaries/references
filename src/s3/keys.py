@@ -1,7 +1,7 @@
 """
 Module keys.py
 """
-
+import logging
 import boto3
 import botocore.exceptions
 
@@ -30,6 +30,12 @@ class Keys:
         self.__s3_client = service.s3_client
         self.__bucket = self.__s3_resource.Bucket(name=self.__bucket_name)
 
+        # Logging
+        logging.basicConfig(level=logging.INFO,
+                            format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
+                            datefmt='%Y-%m-%d %H:%M:%S')
+        self.__logger = logging.getLogger(__name__)
+
     def excerpt(self, prefix: str) -> list[str]:
         """
         https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/client/list_objects_v2.html
@@ -39,16 +45,18 @@ class Keys:
             A list of Amazon S3 (Simple Storage Service) keys.
         """
 
+        # Keys
         try:
             dictionaries = self.__s3_client.list_objects_v2(Bucket=self.__bucket_name, Prefix=prefix)
-        except self.__s3_client.exceptions.NoSuchKey:
-            return []
         except botocore.exceptions.ClientError as err:
             raise err from err
 
-        items = [dictionary['Key'] for dictionary in dictionaries['Contents']]
+        # Any keys?
+        if dictionaries['KeyCount'] == 0:
+            return []
 
-        return items
+        return [dictionary['Key']
+                for dictionary in dictionaries['Contents']]
 
     def all(self) -> list[str]:
         """

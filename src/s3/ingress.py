@@ -1,9 +1,11 @@
 """
 Module ingress.py
 """
+import logging
 import botocore.exceptions
 import dask
 import pandas as pd
+import urllib.parse
 
 import src.elements.service as sr
 
@@ -28,9 +30,17 @@ class Ingress:
         self.__s3_client = service.s3_client
         self.__bucket_name = bucket_name
 
+        # Logging
+        logging.basicConfig(level=logging.INFO,
+                            format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
+                            datefmt='%Y-%m-%d %H:%M:%S')
+        self.__logger = logging.getLogger(__name__)
+
     @dask.delayed
     def __ingress(self, file: str, key: str, metadata: dict) -> str:
         """
+        https://boto3.amazonaws.com/v1/documentation/api/latest/reference/customizations/
+            s3.html#boto3.s3.transfer.S3Transfer.ALLOWED_UPLOAD_ARGS
 
         :param file: The local file string, i.e., <path> + <file name> + <extension>,
                      of the file being uploaded
@@ -41,9 +51,17 @@ class Ingress:
         :return:
         """
 
+        self.__logger.info(metadata)
+
+        tags = {key: value for key, value in metadata.items()}
+        self.__logger.info(tags)
+        tagging = urllib.parse.urlencode(tags)
+        self.__logger.info(tagging)
+
+
         try:
             self.__s3_client.upload_file(Filename=file, Bucket=self.__bucket_name, Key=key,
-                                         ExtraArgs={'Metadata': metadata})
+                                         ExtraArgs={'Metadata': metadata, 'Tagging': tagging})
             return f'Uploading {key}'
         except botocore.exceptions.ClientError as err:
             raise err from err

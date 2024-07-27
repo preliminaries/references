@@ -1,11 +1,10 @@
-"""
-Module ingress.py
-"""
+"""Module ingress.py"""
 import logging
+import urllib.parse
+
 import botocore.exceptions
 import dask
 import pandas as pd
-import urllib.parse
 
 import src.elements.service as sr
 
@@ -51,13 +50,8 @@ class Ingress:
         :return:
         """
 
-        self.__logger.info(metadata)
-
         tags = {key: value for key, value in metadata.items()}
-        self.__logger.info(tags)
         tagging = urllib.parse.urlencode(tags)
-        self.__logger.info(tagging)
-
 
         try:
             self.__s3_client.upload_file(Filename=file, Bucket=self.__bucket_name, Key=key,

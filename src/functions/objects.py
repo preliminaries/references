@@ -1,9 +1,7 @@
-"""
-Module objects.py
-"""
-
+"""Module objects.py"""
 import json
 import pathlib
+
 import requests
 
 
@@ -25,8 +23,8 @@ class Objects:
     def write(nodes: dict, path: str) -> str:
         """
 
-        :param nodes:
-        :param path:
+        :param nodes: The dictionary being saved.
+        :param path: The storage point.
         :return:
         """
 
@@ -46,7 +44,7 @@ class Objects:
     def api(url: str) -> dict:
         """
 
-        :param url:
+        :param url: A uniform resource locator; web.
         :return:
         """
 
@@ -66,7 +64,7 @@ class Objects:
     def read(uri: str) -> dict:
         """
 
-        :param uri:
+        :param uri: A uniform resource identifier; local.
         :return:
         """
 

@@ -2,7 +2,7 @@
 
 ### Notes
 
-The **scopes** of an organisation's direct & indirect green house gas emissions
+The [scope types](references/scope.csv) of an organisation's direct & indirect green house gas emissions
 
 * [Public Sector Leadership on the Global Climate Emergency](https://www.gov.scot/publications/public-sector-leadership-global-climate-emergency/)
 * [Scope 1 and Scope 2 Inventory Guidance](https://www.epa.gov/climateleadership/scope-1-and-scope-2-inventory-guidance)

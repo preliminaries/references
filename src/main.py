@@ -1,5 +1,4 @@
 """Module main.py"""
-import logging
 import os
 import sys
 
@@ -9,23 +8,18 @@ def main():
     Entry point
     """
 
-    # Logging
-    logger: logging.Logger = logging.getLogger(name=__name__)
-    logger.info('references')
-
-    # Empty/Create Buckets
+    # Empty/Create Bucket
     src.setup.Setup(service=service, s3_parameters=s3_parameters, warehouse=configurations.warehouse).exc(
         bucket_name=s3_parameters.external, prefix=s3_parameters.path_external_references)
 
-    # Explore
+    # Storage details for Amazon S3 (Simple Storage Service) transfer step
     strings = src.data.key_strings.KeyStrings().exc(
         path=os.path.join(root, 'data', 'references'),
         extension='csv', prefix=s3_parameters.path_external_references)
-    logger.info(strings.to_dict('records'))
-    for string in strings.to_dict(orient='records'):
-        logger.info(string['metadata'])
 
-    src.s3.ingress.Ingress(service=service, bucket_name=s3_parameters.external).exc(strings=strings)
+    # Transferring to Amazon S3
+    src.s3.ingress.Ingress(
+        service=service, bucket_name=s3_parameters.external).exc(strings=strings)
 
     # Deleting __pycache__
     src.functions.cache.Cache().exc()
@@ -38,12 +32,6 @@ if __name__ == '__main__':
     sys.path.append(root)
     sys.path.append(os.path.join(root, 'src'))
 
-    logging.captureWarnings(capture=True)
-
-    logging.basicConfig(level=logging.INFO,
-                        format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
-                        datefmt='%Y-%m-%d %H:%M:%S')
-
     # Modules
     import config
     import src.data.key_strings
@@ -51,8 +39,8 @@ if __name__ == '__main__':
     import src.elements.service as sr
     import src.functions.cache
     import src.functions.service
-    import src.s3.s3_parameters
     import src.s3.ingress
+    import src.s3.s3_parameters
     import src.setup
 
     configurations = config.Config()

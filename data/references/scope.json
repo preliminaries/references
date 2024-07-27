@@ -1,6 +1,6 @@
 {
-  "scope_id": "The scope identification code",
-  "scope_type": "The scope type",
-  "description": "The scope's description.",
-  "mapping_string": "The embedded text string, which will be replaced with a code."
+  "scope_id": "The scope identification code.",
+  "scope_type": "The scope type.",
+  "description": "The scope type description.",
+  "mapping_string": "The embedded text string for identification code mapping."
 }

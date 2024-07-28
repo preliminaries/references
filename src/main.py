@@ -13,6 +13,8 @@ def main():
     setup.exc(bucket_name=s3_parameters.external, prefix=s3_parameters.path_external_references)
     setup.exc(bucket_name=s3_parameters.internal, prefix=configurations.s3_prefix)
 
+    src.data.interface.Interface(service=service, s3_parameters=s3_parameters).exc()
+
     # Deleting __pycache__
     src.functions.cache.Cache().exc()
 
@@ -26,9 +28,8 @@ if __name__ == '__main__':
 
     # Modules
     import config
+    import src.data.interface
     import src.data.key_strings
-    import src.elements.s3_parameters as s3p
-    import src.elements.service as sr
     import src.functions.cache
     import src.functions.service
     import src.s3.ingress
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     configurations = config.Config()
 
     # S3 S3Parameters, Service
-    s3_parameters: s3p.S3Parameters = src.s3.s3_parameters.S3Parameters().exc()
-    service: sr.Service = src.functions.service.Service(region_name=s3_parameters.region_name).exc()
+    s3_parameters = src.s3.s3_parameters.S3Parameters().exc()
+    service = src.functions.service.Service(region_name=s3_parameters.region_name).exc()
 
     main()

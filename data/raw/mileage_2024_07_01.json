@@ -1,6 +1,6 @@
 {
   "focus": "The mileage data of the health organisations of Scotland.",
   "number_of_sheets": "23",
-  "description": " It records the data of 22 organisations.  A data sheet per organisation and a summary/pivot sheet.",
+  "description": "It records the data of 22 organisations.  A data sheet per organisation and a summary/pivot sheet.  Each data sheet has the same 13 data fields.",
   "project": "Sustainability Project"
 }

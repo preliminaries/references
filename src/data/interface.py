@@ -4,7 +4,7 @@ import os
 import config
 
 import src.s3.ingress
-import src.data.key_strings
+import src.data.dictionary
 
 import src.elements.s3_parameters as s3p
 import src.elements.service as sr
@@ -24,7 +24,7 @@ class Interface:
         self.__s3_parameters = s3_parameters
 
         # Amazon S3 keys, etc.
-        self.__key_strings = src.data.key_strings.KeyStrings()
+        self.__dictionary = src.data.dictionary.Dictionary()
 
         # Configurations
         self.__configurations = config.Config()
@@ -44,7 +44,7 @@ class Interface:
         prefix = self.__s3_parameters.path_external_references
 
         # Storage details for Amazon S3 (Simple Storage Service) transfer step
-        strings = self.__key_strings.exc(path=os.path.join(os.getcwd(), 'data', 'references'),
+        strings = self.__dictionary.exc(path=os.path.join(os.getcwd(), 'data', 'references'),
                                          extension='csv', prefix=prefix)
 
         # Transferring to Amazon S3
@@ -61,7 +61,7 @@ class Interface:
         prefix = self.__configurations.s3_prefix + 'raw/'
 
         # Storage details for Amazon S3 (Simple Storage Service) transfer step
-        strings = self.__key_strings.exc(path=os.path.join(os.getcwd(), 'data', 'raw'),
+        strings = self.__dictionary.exc(path=os.path.join(os.getcwd(), 'data', 'raw'),
                                          extension='xlsx', prefix=prefix)
 
         # Transferring to Amazon S3

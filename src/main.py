@@ -8,18 +8,10 @@ def main():
     Entry point
     """
 
-    # Empty/Create Bucket
-    src.setup.Setup(service=service, s3_parameters=s3_parameters, warehouse=configurations.warehouse).exc(
-        bucket_name=s3_parameters.external, prefix=s3_parameters.path_external_references)
-
-    # Storage details for Amazon S3 (Simple Storage Service) transfer step
-    strings = src.data.key_strings.KeyStrings().exc(
-        path=os.path.join(root, 'data', 'references'),
-        extension='csv', prefix=s3_parameters.path_external_references)
-
-    # Transferring to Amazon S3
-    src.s3.ingress.Ingress(
-        service=service, bucket_name=s3_parameters.external).exc(strings=strings)
+    # Preparing storage areas
+    setup = src.setup.Setup(service=service, s3_parameters=s3_parameters)
+    setup.exc(bucket_name=s3_parameters.external, prefix=s3_parameters.path_external_references)
+    setup.exc(bucket_name=s3_parameters.internal, prefix=configurations.s3_prefix)
 
     # Deleting __pycache__
     src.functions.cache.Cache().exc()

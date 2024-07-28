@@ -1,4 +1,4 @@
-"""Module key_strings.py"""
+"""Module dictionary.py"""
 import glob
 import logging
 import os
@@ -9,7 +9,7 @@ import pandas as pd
 import src.functions.objects
 
 
-class KeyStrings:
+class Dictionary:
     """
     Class KeyStrings
     """

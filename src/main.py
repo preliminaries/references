@@ -13,6 +13,7 @@ def main():
     setup.exc(bucket_name=s3_parameters.external, prefix=s3_parameters.path_external_references)
     setup.exc(bucket_name=s3_parameters.internal, prefix=configurations.s3_prefix)
 
+    # Transfer ...
     src.data.interface.Interface(service=service, s3_parameters=s3_parameters).exc()
 
     # Deleting __pycache__
@@ -29,10 +30,8 @@ if __name__ == '__main__':
     # Modules
     import config
     import src.data.interface
-    import src.data.key_strings
     import src.functions.cache
     import src.functions.service
-    import src.s3.ingress
     import src.s3.s3_parameters
     import src.setup
 

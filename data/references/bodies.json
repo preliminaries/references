@@ -1,6 +1,7 @@
 {
-  "organisation_name": "The name of a health organisation.",
-  "organisation_id": "The unique identification code of the health organisation.",
-  "organisation_type_id": "The unique identification code of the health organisation type.",
-  "mileage_tab": "The name of the sheet of an organisation within the national health service mileage document."
+  "body_name": "The name of a body.  Focusing on health bodies.",
+  "body_id": "The unique identification code of the body.",
+  "body_type_class_id": "The unique identification code of the body type class of a body type.",
+  "body_type_id": "The identification code of a body type",
+  "mileage_tab": "The name of the sheet of a body within the national health service mileage document."
 }

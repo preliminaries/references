@@ -1,4 +1,4 @@
-organisation_type,organisation_type_id
-Regional,1
-Special,2
-Public Health,3
+body_type_class,body_type_class_id,body_type_id
+Regional,1,6113
+Special,2,6113
+Public Health,3,6113

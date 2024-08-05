@@ -1,0 +1,4 @@
+{
+  "body_type_id": "The identification code of a body type.",	
+  "body_type": "A government body type.  The bodies of a body type might be grouped by class."
+}

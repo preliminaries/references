@@ -1,4 +1,4 @@
-organisation_name,organisation_id,organisation_type_id,mileage_tab
+body_name,body_id,body_type_class_id,mileage_tab
 NHS Ayrshire & Arran ,3999111,1,A&A
 NHS Borders,3999112,1,Borders
 NHS Dumfries & Galloway,3999113,1,D&G

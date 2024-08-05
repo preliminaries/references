@@ -1,4 +1,5 @@
 {
-  "organisation_type": "The type of health organisation.",
-  "organisation_type_id": "The unique identification code of the health organisation type."
+  "body_type_class": "A government body belongs a body type.  The bodies of a body type might be grouped by class.",
+  "body_type_class_id": "The unique identification code of the body type class.",
+  "body_type_id": "The identification code of a body type"
 }
